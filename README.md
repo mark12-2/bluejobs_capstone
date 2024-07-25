@@ -1,6 +1,6 @@
 # bluejobs_capstone
 
-A new Flutter project.
+just functions
 
 ## Getting Started
 
