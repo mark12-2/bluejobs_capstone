@@ -1,6 +1,5 @@
-import 'package:bluejobs_capstone/navigation/employer_navigation.dart';
-import 'package:bluejobs_capstone/navigation/jobhunter_navigation.dart';
 import 'package:bluejobs_capstone/provider/auth_provider.dart';
+import 'package:bluejobs_capstone/screens_for_auth/signin.dart';
 import 'package:bluejobs_capstone/styles/custom_button.dart';
 import 'package:bluejobs_capstone/styles/responsive_utils.dart';
 import 'package:bluejobs_capstone/styles/textstyle.dart';
@@ -33,7 +32,7 @@ class _DoneCreatePageState extends State<DoneCreatePage> {
     String role = ap.userModel.role;
     return ConfettiWidget(
         confettiController: _confettiKey,
-        blastDirectionality: BlastDirectionality.explosive, 
+        blastDirectionality: BlastDirectionality.explosive,
         colors: const [
           Colors.orange,
           Color.fromARGB(255, 7, 30, 47),
@@ -56,31 +55,29 @@ class _DoneCreatePageState extends State<DoneCreatePage> {
               const SizedBox(
                 height: 20,
               ),
+              Text("You are one step closer...",
+                  style: CustomTextStyle.titleText
+                      .copyWith(fontSize: responsiveSize(context, 0.05))),
+              const SizedBox(
+                height: 20,
+              ),
+              Text("Check your email to verify your account before logging in.",
+                  style: CustomTextStyle.titleText
+                      .copyWith(fontSize: responsiveSize(context, 0.05))),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: ListBody(
                   children: [
                     CustomButton(
                       onPressed: () {
-                        if (role == 'Employer') {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EmployerNavigation(),
-                            ),
-                            (route) => false,
-                          );
-                        } else if (role == 'Job Hunter') {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const JobhunterNavigation(),
-                            ),
-                            (route) => false,
-                          );
-                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignInPage(),
+                          ),
+                        );
                       },
-                      buttonText: 'Next',
+                      buttonText: 'Proceed to Log In',
                     ),
                   ],
                 ),

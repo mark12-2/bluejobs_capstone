@@ -50,10 +50,23 @@ class AuthProvider with ChangeNotifier {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       _uid = userCredential.user?.uid;
-      _isSignedIn = true;
+
+      await userCredential.user?.sendEmailVerification();
+
+      _isSignedIn = false;
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
+    }
+  }
+
+// check if user's email is verified
+  Future<bool> isEmailVerified() async {
+    if (_firebaseAuth.currentUser != null) {
+      await _firebaseAuth.currentUser?.reload();
+      return _firebaseAuth.currentUser?.emailVerified ?? false;
+    } else {
+      return false;
     }
   }
 
@@ -74,6 +87,19 @@ class AuthProvider with ChangeNotifier {
           const SnackBar(
             content: Text(
                 'Your account has been disabled. Please contact an administrator.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+
+        await _firebaseAuth.signOut();
+        return;
+      }
+
+      if (!await isEmailVerified()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content:
+                Text('Please verify your email address before proceeding.'),
             backgroundColor: Colors.red,
           ),
         );
