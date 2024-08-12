@@ -1,5 +1,6 @@
 import 'package:bluejobs_capstone/chats/messaging_roompage.dart';
 import 'package:bluejobs_capstone/default_screens/comment.dart';
+import 'package:bluejobs_capstone/default_screens/find_others.dart';
 import 'package:bluejobs_capstone/default_screens/view_profile.dart';
 import 'package:bluejobs_capstone/provider/mapping/location_service.dart';
 import 'package:bluejobs_capstone/provider/notifications/notifications_provider.dart';
@@ -126,6 +127,16 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                 ],
+              );
+            },
+          ),
+           IconButton(
+            icon: const Icon(Icons.find_in_page),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FindOthersPage()),
               );
             },
           ),
