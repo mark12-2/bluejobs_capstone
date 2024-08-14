@@ -138,8 +138,10 @@ class _SignInPageState extends State<SignInPage> {
                         await ap.saveUserDataToSP();
                         await ap.setSignIn();
 
+                        // Fetch the user's role from the fetched data
                         String role = ap.userModel.role;
 
+                        // Navigate to the designated page based on the role
                         if (role == 'Employer') {
                           Navigator.pushAndRemoveUntil(
                             context,

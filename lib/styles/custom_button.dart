@@ -1,5 +1,6 @@
 import 'package:bluejobs_capstone/styles/textstyle.dart';
 import 'package:flutter/material.dart';
+//import 'package:bluejobs_user/styles/custom_button.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -12,7 +13,7 @@ class CustomButton extends StatelessWidget {
   final double borderWidth;
   final Color borderColor;
 
-  const CustomButton({
+   const CustomButton({
     Key? key,
     required this.onPressed,
     required this.buttonText,

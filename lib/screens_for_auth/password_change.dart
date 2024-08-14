@@ -66,6 +66,7 @@ class _PasswordChangeState extends State<PasswordChange> {
   }
 
   bool validateEmail(String email) {
+    // Add your email validation logic here
     return email.contains('@') && email.contains('.');
   }
 
@@ -73,6 +74,7 @@ class _PasswordChangeState extends State<PasswordChange> {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       showSnackBar(context, 'Password reset email sent');
+      // Redirect to login screen or show a success message
       Navigator.pushReplacementNamed(context, '/sign_in');
     } catch (e) {
       showSnackBar(context, 'Error sending password reset email: $e');

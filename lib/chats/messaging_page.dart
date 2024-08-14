@@ -58,6 +58,7 @@ class _MessagingPageState extends State<MessagingPage> {
                     final chatRoomData =
                         chatRoom.data() as Map<String, dynamic>;
 
+                    // Get the other user's ID and name
                     final otherUserId = chatRoomData['users']
                         .firstWhere((userId) => userId != currentUser.uid);
                     final otherUserName =
@@ -75,6 +76,7 @@ class _MessagingPageState extends State<MessagingPage> {
                             .copyWith(fontSize: responsiveSize(context, 0.04)),
                       ),
                       subtitle: Text(
+                        // lastMessageText,
                         'View message',
                         style: CustomTextStyle.regularText
                             .copyWith(fontSize: responsiveSize(context, 0.03)),

@@ -1,4 +1,4 @@
-import 'package:bluejobs_capstone/jobhunter_screens/resume_view.dart';
+import 'package:bluejobs_capstone/jobhunter_screens/details_view.dart';
 import 'package:bluejobs_capstone/provider/notifications/notifications_provider.dart';
 import 'package:bluejobs_capstone/provider/posts_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -129,6 +129,8 @@ class _ApplicantsPageState extends State<ApplicantsPage> {
 
   void _hireApplicant(String applicantId) async {
     await _postsProvider.updateApplicantStatus(widget.jobId, applicantId, true);
+
+    // Send a notification to the applicant
     await _notificationProvider.someNotification(
       receiverId: applicantId,
       senderId: _auth.currentUser!.uid,

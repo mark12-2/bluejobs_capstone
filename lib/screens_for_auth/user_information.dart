@@ -3,6 +3,7 @@ import 'package:bluejobs_capstone/dropdowns/addresses.dart';
 import 'package:bluejobs_capstone/model/user_model.dart';
 import 'package:bluejobs_capstone/provider/auth_provider.dart';
 import 'package:bluejobs_capstone/screens_for_auth/confetti.dart';
+import 'package:bluejobs_capstone/screens_for_auth/skills.dart';
 import 'package:bluejobs_capstone/styles/custom_button.dart';
 import 'package:bluejobs_capstone/styles/custom_theme.dart';
 import 'package:bluejobs_capstone/styles/responsive_utils.dart';
@@ -34,11 +35,13 @@ class _UserInformationState extends State<UserInformation> {
   String? _sex;
   final _birthdayController = TextEditingController();
   String? _address;
+  // focus node - name and email
   final FocusNode _firstNameFocusNode = FocusNode();
   final FocusNode _middleNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
   final FocusNode _suffixFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
+  // birthdate
   final FocusNode _birthdayFocusNode = FocusNode();
   DateTime? _selectedDate;
 
@@ -59,6 +62,7 @@ class _UserInformationState extends State<UserInformation> {
   @override
   void initState() {
     super.initState();
+    // Listen for focus changes
     _firstNameFocusNode.addListener(_onFocusChange);
     _middleNameFocusNode.addListener(_onFocusChange);
     _lastNameFocusNode.addListener(_onFocusChange);
@@ -74,6 +78,7 @@ class _UserInformationState extends State<UserInformation> {
     });
   }
 
+// birthdate input
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -90,6 +95,7 @@ class _UserInformationState extends State<UserInformation> {
     }
   }
 
+  // for selecting image
   void selectImage() async {
     image = await pickImage(context);
     setState(() {});
@@ -169,6 +175,7 @@ class _UserInformationState extends State<UserInformation> {
                         SizedBox(height: responsive.verticalPadding(0.02)),
 
                         TextField(
+                          // last name input
                           controller: _lastNameController,
                           focusNode: _lastNameFocusNode,
                           decoration: customInputDecoration('Last Name'),
@@ -177,6 +184,7 @@ class _UserInformationState extends State<UserInformation> {
                         SizedBox(height: responsive.verticalPadding(0.02)),
 
                         TextField(
+                          // middle name input
                           controller: _middleNameController,
                           focusNode: _middleNameFocusNode,
                           decoration:
@@ -186,6 +194,7 @@ class _UserInformationState extends State<UserInformation> {
                         SizedBox(height: responsive.verticalPadding(0.02)),
 
                         TextField(
+                          // suffix input
                           controller: _suffixController,
                           focusNode: _suffixFocusNode,
                           decoration:
@@ -210,6 +219,7 @@ class _UserInformationState extends State<UserInformation> {
                           onChanged: (phone) {},
                         ),
 
+                        // sex input
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: responsive.horizontalPadding(0.04)),
@@ -252,6 +262,7 @@ class _UserInformationState extends State<UserInformation> {
                           ),
                         ),
 
+                        // birthdate input
                         Padding(
                           padding: const EdgeInsets.only(top: 7.0),
                           child: GestureDetector(
@@ -278,15 +289,17 @@ class _UserInformationState extends State<UserInformation> {
                         ),
                         SizedBox(height: responsive.verticalPadding(0.01)),
 
+                        // address input
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
+                          //auto complete search addresses, but only in albay
                           child: Autocomplete<String>(
                             optionsBuilder:
                                 (TextEditingValue textEditingValue) {
                               if (textEditingValue.text.isEmpty) {
                                 return const Iterable<String>.empty();
                               }
-
+                              // fix input in adress because of other syntaxes like comma
                               String normalizedInput = textEditingValue.text
                                   .toLowerCase()
                                   .replaceAll(',', '');
@@ -350,7 +363,7 @@ class _UserInformationState extends State<UserInformation> {
                           ),
                         ),
                         SizedBox(height: responsive.verticalPadding(0.01)),
-
+                        // user type or role input
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Column(
@@ -418,6 +431,7 @@ class _UserInformationState extends State<UserInformation> {
         ));
   }
 
+  // storing data function
   void storeData() async {
     final ap = Provider.of<AuthProvider>(context, listen: false);
 
@@ -481,13 +495,24 @@ class _UserInformationState extends State<UserInformation> {
       onSuccess: () {
         ap.saveUserDataToSP().then((value) {
           ap.setSignIn();
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const DoneCreatePage(),
-            ),
-            (route) => false,
-          );
+          String role = userModel.role;
+          if (role == 'Employer') {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DoneCreatePage(),
+              ),
+              (route) => false,
+            );
+          } else if (role == 'Job Hunter') {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ButtonSpecializationPage(),
+              ),
+              (route) => false,
+            );
+          }
         });
       },
     );

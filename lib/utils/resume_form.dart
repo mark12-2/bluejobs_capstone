@@ -98,27 +98,33 @@ class _ResumeFormState extends State<ResumeForm> {
                     final skills = _skillsController.text;
                     final experience = _experienceController.text;
                     final expectedSalary = _expectedSalaryController.text;
+
+                    // Get the current user's ID from the AuthProvider
                     _userId = authProvider.uid;
 
                     if (_userId != null) {
+                      // Create a new document in the "resume" collection
                       final resumeRef = FirebaseFirestore.instance
                           .collection("users")
                           .doc(_userId)
                           .collection("resume")
                           .doc(_userId);
 
+                      // Add the skills, experience, and expected salary to the document
                       await resumeRef.set({
                         "skills": skills,
                         "experience": experience,
                         "expectedSalary": expectedSalary,
                       });
 
+                      // Show a success message
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Resume updated successfully'),
                         ),
                       );
 
+                      // Navigate back to the previous screen with a callback to reload
                       Navigator.pop(context, true);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

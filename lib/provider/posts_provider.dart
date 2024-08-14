@@ -120,6 +120,7 @@ class PostsProvider with ChangeNotifier {
     return posts.where('ownerId', isEqualTo: userId).snapshots();
   }
 
+
 // update post method
   Future<void> updatePost(Post post) async {
     UserModel? currentUserDetails = await fetchCurrentUserDetails();
@@ -204,6 +205,7 @@ class PostsProvider with ChangeNotifier {
         'applicants': FieldValue.arrayUnion([applicantId]),
       });
     } else {
+      // Show an error message or notification
       print('Cannot add more applicants. The job is full.');
     }
   }

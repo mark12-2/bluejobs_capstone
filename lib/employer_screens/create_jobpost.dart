@@ -18,7 +18,9 @@ class CreateJobPostPage extends StatefulWidget {
 }
 
 class _CreateJobPostPageState extends State<CreateJobPostPage> {
+  // firestore storage access
   final PostsProvider jobpostdetails = PostsProvider();
+  // text controllers
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _locationController = TextEditingController();
@@ -102,6 +104,7 @@ class _CreateJobPostPageState extends State<CreateJobPostPage> {
     });
   }
 
+  // toggle calendar for start and end dates
   void _selectStartDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -365,10 +368,6 @@ class _CreateJobPostPageState extends State<CreateJobPostPage> {
             Row(
               children: [
                 ElevatedButton(
-                  onPressed: () => addJobPost(context),
-                  child: const Text('Post'),
-                ),
-                ElevatedButton(
                   onPressed: () {
                     _titleController.clear();
                     _descriptionController.clear();
@@ -379,8 +378,16 @@ class _CreateJobPostPageState extends State<CreateJobPostPage> {
                         MaterialPageRoute(
                             builder: (context) => const EmployerNavigation()));
                   },
-                  child: const Text('Cancel'),
-                )
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () => addJobPost(context),
+                  child: const Text('Post'),
+                ),
               ],
             )
           ],
@@ -389,6 +396,7 @@ class _CreateJobPostPageState extends State<CreateJobPostPage> {
     );
   }
 
+//post job post
   void addJobPost(BuildContext context) async {
     if (_titleController.text.isNotEmpty &&
         _descriptionController.text.isNotEmpty &&
@@ -429,6 +437,7 @@ class _CreateJobPostPageState extends State<CreateJobPostPage> {
           MaterialPageRoute(builder: (_) => const EmployerNavigation()),
         );
       } catch (e) {
+        // Handle errors here
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to create post: $e')),
         );

@@ -69,15 +69,15 @@ class _ViewPostPageState extends State<ViewPostPage> {
           String userId = post['ownerId'];
           String role = post['role'];
           String profilePic = post['profilePic'];
-          String title = post['title'] ?? '';
+          String title = post['title'] ?? ''; // for job post
           String description = post['description'];
           String type = post['type'];
-          String location = post['location'] ?? ''; 
-          String rate = post['rate'] ?? ''; 
+          String location = post['location'] ?? ''; // for job post
+          String rate = post['rate'] ?? ''; // for job post
           String numberOfWorkers = post['numberOfWorkers'] ?? '';
           String startDate = post['startDate'] ?? '';
           String endDate = post['endDate'] ?? '';
-          String workingHours = post['workingHours'] ?? ''; 
+          String workingHours = post['workingHours'] ?? ''; // for job post
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -114,7 +114,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
                                   "$name",
                                   style: CustomTextStyle.semiBoldText.copyWith(
                                     color: const Color.fromARGB(255, 0, 0, 0),
-                                    fontSize: responsiveSize(context, 0.05),
+                                    fontSize: responsiveSize(context, 0.04),
                                   ),
                                 ),
                                 const SizedBox(width: 5),
@@ -146,15 +146,14 @@ class _ViewPostPageState extends State<ViewPostPage> {
                       )
                     ],
                   ),
-
                   const SizedBox(height: 15),
-                 
+                  // post description
                   role == 'Employer'
                       ? Text(
                           "$title",
                           style: CustomTextStyle.semiBoldText,
                         )
-                      : Container(), 
+                      : Container(), // return empty 'title belongs to employer'
                   const SizedBox(height: 5),
                   Text(
                     "$description",
@@ -549,7 +548,7 @@ class _ViewPostPageState extends State<ViewPostPage> {
     return isApplicationFull ?? false;
   }
 
-
+  // adding a comment
   void addComment(BuildContext context, String postId) async {
     if (_commentTextController.text.isNotEmpty) {
       String comment = _commentTextController.text;
@@ -557,10 +556,12 @@ class _ViewPostPageState extends State<ViewPostPage> {
       try {
         await Provider.of<PostsProvider>(context, listen: false)
             .addComment(comment, postId);
+        // You can add a success message here if you want
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Comment added successfully')),
         );
       } catch (e) {
+        // Handle errors here
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to add comment: $e')),
         );

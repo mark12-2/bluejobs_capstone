@@ -128,18 +128,21 @@ class _EditUserInformationState extends State<EditUserInformation> {
                       child: ListBody(
                         children: [
                           TextField(
+                            // first name input
                             controller: _firstNameController,
                             focusNode: _firstNameFocusNode,
                             decoration: customInputDecoration('First Name'),
                           ),
                           const SizedBox(height: 20),
                           TextField(
+                            // last name input
                             controller: _lastNameController,
                             focusNode: _lastNameFocusNode,
                             decoration: customInputDecoration('Last Name'),
                           ),
                           const SizedBox(height: 20),
                           TextField(
+                            // middle name input
                             controller: _middleNameController,
                             focusNode: _middleNameFocusNode,
                             decoration:
@@ -147,6 +150,7 @@ class _EditUserInformationState extends State<EditUserInformation> {
                           ),
                           const SizedBox(height: 20),
                           TextField(
+                            // suffix input
                             controller: _suffixController,
                             focusNode: _suffixFocusNode,
                             decoration:
@@ -306,6 +310,7 @@ class _EditUserInformationState extends State<EditUserInformation> {
         ap.saveUserDataToSP().then((value) {
           String role = ap.userModel.role;
 
+          // Navigate to the designated page based on the role
           if (role == 'Employer') {
             Navigator.pushAndRemoveUntil(
               context,

@@ -15,23 +15,29 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
+  // firestore storage access
   final PostsProvider createdPost = PostsProvider();
-
+  // text controllers
   final _descriptionController = TextEditingController();
   final _typeController = TextEditingController();
+  // final _rateController = TextEditingController();
 
   final _descriptionFocusNode = FocusNode();
   final _typeFocusNode = FocusNode();
+  // final _rateFocusNode = FocusNode();
 
   bool _isDescriptionFocused = false;
+  // bool _isRateFocused = false;
   bool _isTypeFocused = false;
 
   @override
   void dispose() {
     _descriptionController.dispose();
     _typeController.dispose();
+    // _rateController.dispose();
     _descriptionFocusNode.dispose();
     _typeFocusNode.dispose();
+    // _rateFocusNode.dispose();
     super.dispose();
   }
 
@@ -39,12 +45,14 @@ class _PostPageState extends State<PostPage> {
   void initState() {
     super.initState();
     _descriptionFocusNode.addListener(_onFocusChange);
+    // _rateFocusNode.addListener(_onFocusChange);
     _typeFocusNode.addListener(_onFocusChange);
   }
 
   void _onFocusChange() {
     setState(() {
       _isDescriptionFocused = _descriptionFocusNode.hasFocus;
+      // _isRateFocused = _rateFocusNode.hasFocus;
       _isTypeFocused = _typeFocusNode.hasFocus;
     });
   }
@@ -102,10 +110,6 @@ class _PostPageState extends State<PostPage> {
             Row(
               children: [
                 ElevatedButton(
-                  onPressed: () => createPost(context),
-                  child: const Text('Post'),
-                ),
-                ElevatedButton(
                   onPressed: () {
                     _descriptionController.clear();
                     _typeController.clear();
@@ -115,8 +119,16 @@ class _PostPageState extends State<PostPage> {
                         MaterialPageRoute(
                             builder: (context) => const JobhunterNavigation()));
                   },
-                  child: const Text('Cancel'),
-                )
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () => createPost(context),
+                  child: const Text('Post'),
+                ),
               ],
             )
           ],
@@ -131,10 +143,11 @@ class _PostPageState extends State<PostPage> {
         _typeController.text.isNotEmpty) {
       String description = _descriptionController.text;
       String type = _typeController.text;
-
+      // String rate = _rateController.text;
       var postDetails = Post(
         description: description,
         type: type,
+        // rate: rate,
       );
 
       try {

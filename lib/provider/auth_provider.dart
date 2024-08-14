@@ -261,10 +261,12 @@ class AuthProvider with ChangeNotifier {
               isEnabled: true);
           _uid = userModel.uid;
         } else {
+          // Handle the case where the user data is null
           print("User data not found");
         }
       });
     } catch (e) {
+      // Handle any exceptions that might occur
       print("Error getting data from Firestore: $e");
     }
   }
@@ -288,15 +290,6 @@ class AuthProvider with ChangeNotifier {
     _isSignedIn = false;
     notifyListeners();
     s.clear();
-  }
-
-// fetching resume data
-  Stream<QuerySnapshot> getResumeData(String uid) {
-    return FirebaseFirestore.instance
-        .collection("users")
-        .doc(uid)
-        .collection("resume")
-        .snapshots();
   }
 
   // use with caution

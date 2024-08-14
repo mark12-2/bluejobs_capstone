@@ -35,6 +35,7 @@ class _EditPostState extends State<EditPost> {
   bool _isLoading = true;
   Post? _post;
 
+  // fetch specific post
   Future<void> fetchPostById(String postId) async {
     try {
       final postRef =
@@ -48,6 +49,7 @@ class _EditPostState extends State<EditPost> {
             _post = post;
             _description = _post?.description;
             _type = _post?.type;
+            // _rate = _post?.rate;
             _isLoading = false;
           });
         } else {
@@ -95,7 +97,7 @@ class _EditPostState extends State<EditPost> {
                       TextFormField(
                         initialValue: _description,
                         decoration: customInputDecoration('Description'),
-                        maxLines: 20,
+                        maxLines: 20, 
                         minLines: 1,
                         keyboardType: TextInputType.multiline,
                         onSaved: (value) => _description = value,
@@ -109,7 +111,9 @@ class _EditPostState extends State<EditPost> {
                         keyboardType: TextInputType.multiline,
                         onSaved: (value) => _type = value,
                       ),
+                      
                       const SizedBox(height: 20),
+
                       Row(
                         children: [
                           ElevatedButton(

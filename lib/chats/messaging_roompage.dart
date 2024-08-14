@@ -73,6 +73,7 @@ class MessagingBubblePage extends StatelessWidget {
               },
             ),
           ),
+          // user input
           _buildUserInput(context),
         ],
       ),
@@ -89,7 +90,7 @@ class MessagingBubblePage extends StatelessWidget {
     Timestamp timestamp = data['timestamp'];
     DateTime dateTime = timestamp.toDate();
 
-    // Format DateTime yyyy-MM-dd
+    // Format the DateTime yyyy-MM-dd
     String formattedTimestamp = DateFormat('hh:mm').format(dateTime);
 
     return Padding(

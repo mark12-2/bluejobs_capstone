@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:bluejobs_capstone/screens_for_auth/signin.dart';
 import 'package:provider/provider.dart';
 
+// firebase connection
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
