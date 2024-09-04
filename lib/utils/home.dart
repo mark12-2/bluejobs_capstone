@@ -788,3 +788,19 @@ class _HomePageState extends State<HomePage> {
     postDetails.refreshPosts();
   }
 }
+
+
+
+// rules
+// rules_version = '2';
+
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /{document=**} {
+//       allow read, write: if request.auth != null;
+//     }
+//     match /users/{userId}/notifications/{notificationId} {
+//       allow read, write: if request.auth.uid == userId;
+//     }
+//   }
+// }
