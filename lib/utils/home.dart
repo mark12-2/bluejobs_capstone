@@ -1,6 +1,6 @@
 import 'package:bluejobs_capstone/chats/messaging_roompage.dart';
 import 'package:bluejobs_capstone/default_screens/comment.dart';
-import 'package:bluejobs_capstone/default_screens/find_others.dart';
+import 'package:bluejobs_capstone/employer_screens/find_others.dart';
 import 'package:bluejobs_capstone/default_screens/view_profile.dart';
 import 'package:bluejobs_capstone/provider/mapping/location_service.dart';
 import 'package:bluejobs_capstone/provider/notifications/notifications_provider.dart';
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               curve: Curves.easeOut,
             );
           },
-          child: Image.asset('assets/images/bluejobs_capstone.png'),
+          child: Image.asset('assets/images/bluejobs.png'),
         ),
         actions: <Widget>[
           Consumer<NotificationProvider>(
@@ -214,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                                           CircleAvatar(
                                             backgroundImage:
                                                 NetworkImage(profilePic),
-                                            radius: 35.0,
+                                            radius: 30.0,
                                           ),
                                           const SizedBox(
                                             width: 10,
@@ -249,7 +249,7 @@ class _HomePageState extends State<HomePage> {
                                                                 context, 0.04),
                                                       ),
                                                     ),
-                                                    const SizedBox(width: 5),
+                                                    const SizedBox(width: 1),
                                                     auth.currentUser?.uid !=
                                                             userId
                                                         ? IconButton(
@@ -760,7 +760,7 @@ class _HomePageState extends State<HomePage> {
     return isApplicationFull ?? false;
   }
 
-  // adding a comment
+// adding a comment
   void addComment(BuildContext context, String postId) async {
     if (_commentTextController.text.isNotEmpty) {
       String comment = _commentTextController.text;

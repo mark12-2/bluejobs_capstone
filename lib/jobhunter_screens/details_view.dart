@@ -220,20 +220,6 @@ class _JobHunterResumeViewState extends State<JobHunterResumeView> {
               ),
             ],
           ),
-          if (title == 'Address')
-            TextButton(
-              onPressed: () async {
-                final location = content;
-                final locations = await locationFromAddress(location);
-                final lat = locations[0].latitude;
-                final lon = locations[0].longitude;
-                showLocationPickerModal(
-                  context,
-                  TextEditingController(text: '$lat, $lon'),
-                );
-              },
-              child: Text('View on Map'),
-            ),
         ],
       ),
     );

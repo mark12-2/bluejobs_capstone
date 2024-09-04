@@ -49,7 +49,7 @@ class _DoneCreatePageState extends State<DoneCreatePage> {
                   children: [
                     Row(
                       children: [
-                        Text("Welcome to BlueJobs_capstone!",
+                        Text("Welcome to BlueJobs!",
                             style: CustomTextStyle.titleText.copyWith(
                                 fontSize: responsiveSize(context, 0.05))),
                       ],

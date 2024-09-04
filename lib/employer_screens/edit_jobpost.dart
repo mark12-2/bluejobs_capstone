@@ -126,10 +126,8 @@ class _JobEditPostState extends State<JobEditPost> {
           _descriptionController.text = post.description ?? '';
           _typeController.text = post.type ?? '';
           _locationController.text = post.location ?? '';
-          _rateController.text = post.rate ?? '';
-          _numberOfWorkersController.text = post.numberOfWorkers ?? '';
+
           _startDateController.text = post.startDate ?? '';
-          _endDateController.text = post.endDate ?? '';
           _workingHoursController.text = post.workingHours ?? '';
           _isLoading = false;
         });
@@ -245,29 +243,6 @@ class _JobEditPostState extends State<JobEditPost> {
                         ),
                       const SizedBox(height: 20),
                       TextFormField(
-                        controller: _rateController,
-                        focusNode: _rateFocusNode,
-                        decoration: customInputDecoration('Rate'),
-                        maxLines: 10,
-                        minLines: 1,
-                        keyboardType: TextInputType.multiline,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the rate';
-                          }
-                          return null;
-                        },
-                      ),
-                      if (_isRateFocused)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            'Enter the rate. Ex. 300 per hour/day',
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                        ),
-                      const SizedBox(height: 20),
-                      TextFormField(
                         controller: _typeController,
                         focusNode: _typeFocusNode,
                         decoration: customInputDecoration('Type'),
@@ -316,40 +291,8 @@ class _JobEditPostState extends State<JobEditPost> {
                                     TextStyle(color: Colors.grey, fontSize: 12),
                               ),
                             ),
-                          const SizedBox(height: 10),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: () => showLocationPickerModal(
-                                  context, _locationController),
-                              child: const Text('Show Location',
-                                  style: CustomTextStyle.regularText),
-                            ),
-                          ),
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _numberOfWorkersController,
-                        focusNode: _numberOfWorkersFocusNode,
-                        decoration: customInputDecoration('Number of Workers'),
-                        maxLines: 5,
-                        minLines: 1,
-                        keyboardType: TextInputType.multiline,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the number of workers';
-                          }
-                          return null;
-                        },
-                      ),
-                      if (_isNumberOfWorkersFocused)
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            'Enter the number of workers required for the job.',
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                        ),
                       const SizedBox(height: 20),
                       Row(
                         children: [
@@ -387,38 +330,6 @@ class _JobEditPostState extends State<JobEditPost> {
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 7.0),
-                              child: GestureDetector(
-                                onTap: () => _selectEndDate(context),
-                                child: AbsorbPointer(
-                                  child: TextFormField(
-                                    controller: _endDateController,
-                                    focusNode: _endDateFocusNode,
-                                    decoration: const InputDecoration(
-                                        labelText: 'End Date',
-                                        labelStyle: CustomTextStyle.regularText,
-                                        suffixIcon: Icon(Icons.calendar_today),
-                                        hintText: 'Date when the job will end',
-                                        hintStyle: CustomTextStyle.regularText,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.grey,
-                                            width: 1,
-                                          ),
-                                        )),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter the end date';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                       if (_isStartDateFormatFocused || _isEndDateFormatFocused)
@@ -499,10 +410,7 @@ class _JobEditPostState extends State<JobEditPost> {
           description: _descriptionController.text,
           type: _typeController.text,
           location: _locationController.text,
-          rate: _rateController.text,
-          numberOfWorkers: _numberOfWorkersController.text,
           startDate: _startDateController.text,
-          endDate: _endDateController.text,
           workingHours: _workingHoursController.text,
         );
 

@@ -58,6 +58,8 @@ dependencies:
   flutter_map: ^6.2.1
   latlng: ^0.2.0
   latlong2: ^0.9.1
+  file_picker: ^8.0.7
+  flutter_rating_bar: ^4.0.0
 
 
 dev_dependencies:
